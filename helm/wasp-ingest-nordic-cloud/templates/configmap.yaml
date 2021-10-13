@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "wasp-ingest-nordic-cloud.fullname" . }}-config
+  labels:
+    {{- include "wasp-ingest-nordic-cloud.labels" . | nindent 4 }}
+data:
+  waspIngestNordicCloudPort: {{ .Values.config.waspIngestNordicCloudPort | quote }}
+  nordicCloudMqttEndpoint: {{ include "wasp-ingest-nordic-cloud.mqttBroker.endpoint" . }}
+  kafkaBrokers: {{ include "wasp-ingest-nordic-cloud.kafka.brokers" . }}
+  waspIngest: {{ .Values.config.waspIngestName }}
+  logLevel: {{ .Values.config.logLevel }}
+  kafkaLogLevel: {{ .Values.config.kafkajsLogLevel }}

@@ -1,5 +1,7 @@
 const express = require('express')
 const pinoHttp = require('pino-http')
+
+const startMessagePipeline = require('./messagePipeline')
 const { PORT } = require('./env')
 const logger = require('./logger')
 
@@ -27,10 +29,11 @@ async function createHttpServer() {
     }
   })
 
+  await startMessagePipeline()
+
   return { app }
 }
 
-/* istanbul ignore next */
 async function startServer() {
   try {
     const { app } = await createHttpServer()

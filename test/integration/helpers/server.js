@@ -1,6 +1,6 @@
 const request = require('supertest')
 
-const { createHttpServer } = require('../../app/server')
+const { createHttpServer } = require('../../../app/server')
 
 let server = null
 const setupServer = async (context) => {

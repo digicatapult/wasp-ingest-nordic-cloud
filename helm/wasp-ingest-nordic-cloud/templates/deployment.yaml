@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "wasp-ingest-nordic-cloud.fullname" . }}
+  labels:
+    {{- include "wasp-ingest-nordic-cloud.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      name: {{ include "wasp-ingest-nordic-cloud.fullname" . }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+      labels:
+        name: {{ include "wasp-ingest-nordic-cloud.fullname" . }}
+    spec:
+      {{- include "wasp-ingest-nordic-cloud.imagePullSecrets" . | indent 6 }}
+      {{- include "wasp-ingest-nordic-cloud.initContainers" . | indent 6 }}
+
+      containers:
+        - name: {{ include "wasp-ingest-nordic-cloud.fullname" . }}
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.config.waspIngestNordicCloudPort }}
+            initialDelaySeconds: 15
+            timeoutSeconds: 3
+            periodSeconds: 5
+          env:
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "wasp-ingest-nordic-cloud.fullname" . }}-config
+                  key: waspIngestNordicCloudPort
+            - name: NORDIC_CLOUD_MQTT_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "wasp-ingest-nordic-cloud.fullname" . }}-config
+                  key: nordicCloudMqttEndpoint
+            - name: NORDIC_CLOUD_MQTT_KEY_CLIENT
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "wasp-ingest-nordic-cloud.fullname" . }}-secret
+                  key: nordicCloudMqttKeyClient
+            - name: NORDIC_CLOUD_MQTT_CERT_CLIENT
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "wasp-ingest-nordic-cloud.fullname" . }}-secret
+                  key: nordicCloudMqttCertClient
+            - name: NORDIC_CLOUD_MQTT_CERT_CA
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "wasp-ingest-nordic-cloud.fullname" . }}-secret
+                  key: nordicCloudMqttCertCa
+            - name: NORDIC_CLOUD_MQTT_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "wasp-ingest-nordic-cloud.fullname" . }}-secret
+                  key: nordicCloudMqttClientId
+            - name: NORDIC_CLOUD_MQTT_TOPIC_PREFIX
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "wasp-ingest-nordic-cloud.fullname" . }}-secret
+                  key: nordicCloudMqttTopicPrefix
+            - name: KAFKA_BROKERS
+              valueFrom:
+                configMapKeyRef:
+                  name:  {{ include "wasp-ingest-nordic-cloud.fullname" . }}-config
+                  key: kafkaBrokers
+            - name: WASP_INGEST_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name:  {{ include "wasp-ingest-nordic-cloud.fullname" . }}-config
+                  key: waspIngest
+            - name: LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "wasp-ingest-nordic-cloud.fullname" . }}-config
+                  key: logLevel
+            - name: KAFKA_LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "wasp-ingest-nordic-cloud.fullname" . }}-config
+                  key: kafkaLogLevel
