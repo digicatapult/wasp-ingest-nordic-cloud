@@ -1,0 +1,32 @@
+apiVersion: v1
+entries:
+  wasp-ingest-nordic-cloud:
+  - apiVersion: v2
+    appVersion: 0.0.10
+    created: "2021-10-13T11:38:24.54465332Z"
+    dependencies:
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.7.3
+    - condition: mosquitto.enabled
+      name: mosquitto
+      repository: https://k8s-at-home.com/charts/
+      version: ^0.7.0
+    - alias: waspthingmock
+      condition: waspthingmock.enabled
+      name: nginx
+      repository: https://charts.bitnami.com/bitnami
+      version: ^8.7.1
+    description: A Helm chart for WASP-INGEST-NORDIC-CLOUD
+    digest: 57fdb51577d41c4d465a9998f39f24b156b386a98ee4dbfaa96867f845ed0347
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: wasp-ingest-nordic-cloud
+    type: application
+    urls:
+    - https://digicatapult.github.io/wasp-ingest-nordic-cloud/wasp-ingest-nordic-cloud-0.0.10.tgz
+    version: 0.0.10
+generated: "2021-10-13T11:38:24.527839132Z"
