@@ -1,6 +1,6 @@
 {
   "name": "wasp-ingest-nordic-cloud",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "WASP Ingest using nRF Cloud",
   "main": "app/index.js",
   "scripts": {
