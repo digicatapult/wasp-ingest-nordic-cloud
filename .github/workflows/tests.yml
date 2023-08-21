@@ -104,6 +104,16 @@ jobs:
         env:
           GITHUB_PACKAGE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  new-check-version:
+    name: "Check version"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: check-version-before-release@v1
+        with:
+          npm_package_location: './'
+          token: ${{ secrets.GITHUB_TOKEN }}
+
   check-version:
     name: "Check version"
     runs-on: ubuntu-latest
