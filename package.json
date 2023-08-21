@@ -1,6 +1,6 @@
 {
   "name": "wasp-ingest-nordic-cloud",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "WASP Ingest using nRF Cloud",
   "main": "app/index.js",
   "scripts": {
@@ -48,7 +48,7 @@
     "dotenv": "^8.2.0",
     "envalid": "^7.1.0",
     "express": "^4.17.1",
-    "kafkajs": "^1.15.0",
+    "kafkajs": "^2.2.4",
     "mqtt": "^4.2.6",
     "pino": "^6.11.0",
     "pino-http": "^5.3.0",
