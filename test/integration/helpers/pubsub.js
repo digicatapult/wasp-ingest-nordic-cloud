@@ -1,7 +1,7 @@
 const { Kafka, logLevel: kafkaLogLevels } = require('kafkajs')
 require('dotenv').config()
 const mqtt = require('mqtt')
-const delay = require('delay')
+const { setTimeout } = require('node:timers/promises')
 
 const env = require('../../../app/env')
 
@@ -33,15 +33,15 @@ const createPubSub = async () => {
     const prefix = env.NORDIC_CLOUD_MQTT_TOPIC_PREFIX
     mqttClient.publish(`${prefix}/nrf-111111111111111/d2c`, message)
     while (messages.length < expectedMessages) {
-      await delay(10)
+      await setTimeout(10)
     }
-    await delay(waitForExcessMessagesMS)
+    await setTimeout(waitForExcessMessagesMS)
     return [...messages]
   }
 
   return new Promise((resolve) => {
     while (!mqttClient.connected) {
-      delay(50)
+      setTimeout(50)
     }
 
     resolve({

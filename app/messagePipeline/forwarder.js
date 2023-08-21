@@ -5,12 +5,14 @@ const { KAFKA_BROKERS, KAFKA_PAYLOAD_TOPIC, KAFKA_LOG_LEVEL } = require('../env'
 
 const setupForwardToKafka = async () => {
   const logger = globalLogger.child({ module: 'Kafka' })
-  const logCreator = () => ({ label, log }) => {
-    const { message } = log
-    logger[label.toLowerCase()]({
-      message,
-    })
-  }
+  const logCreator =
+    () =>
+    ({ label, log }) => {
+      const { message } = log
+      logger[label.toLowerCase()]({
+        message,
+      })
+    }
 
   const kafka = new Kafka({
     clientId: 'ingest-nordic-cloud',
