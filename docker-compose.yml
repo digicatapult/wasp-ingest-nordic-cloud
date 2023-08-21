@@ -33,7 +33,8 @@ services:
       - zookeeper
       - kafka
   mosquitto:
-    image: eclipse-mosquitto:1.6
+    image: eclipse-mosquitto:2.0
+    command: mosquitto -c /mosquitto-no-auth.conf
     ports:
       - 1883:1883
       - 9001:9001
