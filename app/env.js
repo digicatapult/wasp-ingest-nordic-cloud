@@ -1,5 +1,5 @@
-const envalid = require('envalid')
-const dotenv = require('dotenv')
+import envalid from 'envalid'
+import dotenv from 'dotenv'
 
 if (process.env.NODE_ENV === 'test') {
   dotenv.config({ path: 'test/test.env' })
@@ -49,7 +49,7 @@ const vars = envalid.cleanEnv(
   options
 )
 
-module.exports = {
+export default {
   ...vars,
   MQTT_AUTH_METHOD,
 }

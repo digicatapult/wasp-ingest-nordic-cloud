@@ -1,9 +1,9 @@
-const { Kafka, logLevel: kafkaLogLevels } = require('kafkajs')
-require('dotenv').config()
-const mqtt = require('mqtt')
-const { setTimeout } = require('node:timers/promises')
+import { Kafka, logLevel as kafkaLogLevels } from 'kafkajs'
+import 'dotenv/config'
+import mqtt from 'mqtt'
+import { setTimeout } from 'node:timers/promises'
 
-const env = require('../../../app/env')
+import env from '../../../app/env.js'
 
 const createPubSub = async () => {
   const mqttClient = mqtt.connect(env.NORDIC_CLOUD_MQTT_ENDPOINT)
@@ -54,4 +54,4 @@ const createPubSub = async () => {
   })
 }
 
-module.exports = createPubSub
+export default createPubSub

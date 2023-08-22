@@ -1,8 +1,8 @@
-const { describe, before, it } = require('mocha')
-const { expect } = require('chai')
+import { describe, before, it } from 'mocha'
+import { expect } from 'chai'
 
-const { setupServer } = require('./helpers/server')
-const createPubSub = require('./helpers/pubsub')
+import { setupServer } from './helpers/server.js'
+import createPubSub from './helpers/pubsub.js'
 
 const defaultMessage = {
   appId: 'TEMP',

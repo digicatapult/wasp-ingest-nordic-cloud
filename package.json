@@ -2,14 +2,15 @@
   "name": "wasp-ingest-nordic-cloud",
   "version": "1.0.0",
   "description": "WASP Ingest using nRF Cloud",
+  "type": "module",
   "main": "app/index.js",
   "scripts": {
     "lint": "eslint .",
     "depcheck": "depcheck",
     "start": "node app/index.js",
     "dev": "nodemon app/index.js | pino-colada",
-    "test": "NODE_ENV=test mocha --config ./test/mocharc.js ./test",
-    "test:integration": "NODE_ENV=test mocha --config ./test/mocharc.js ./test/integration",
+    "test": "NODE_ENV=test mocha --config ./test/mocharc.cjs ./test",
+    "test:integration": "NODE_ENV=test mocha --config ./test/mocharc.cjs ./test/integration",
     "coverage": "c8 npm run test"
   },
   "repository": {
@@ -17,7 +18,8 @@
     "url": "git+https://github.com/digicatapult/wasp-ingest-nordic-cloud.git"
   },
   "engines": {
-    "node": ">=14.16.0"
+    "node": ">=18.x.x",
+    "npm": ">=9.x.x"
   },
   "keywords": [
     "WASP",
