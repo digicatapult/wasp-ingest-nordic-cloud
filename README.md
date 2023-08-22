@@ -1,7 +1,8 @@
 # wasp-ingest-nordic-cloud
+
 WASP Ingest for nRF Cloud
 
-Connects to a [Nordic Cloud](https://nrfcloud.com/) supplied MQTT broker. Parses and reformats messages from Nordic devices, then forwards them to be used throughout the rest of WASP. 
+Connects to a [Nordic Cloud](https://nrfcloud.com/) supplied MQTT broker. Parses and reformats messages from Nordic devices, then forwards them to be used throughout the rest of WASP.
 
 ## Getting started
 
@@ -12,6 +13,7 @@ npm install
 ```
 
 ### Testing
+
 For integration testing, `wasp-ingest-nordic-cloud` depends on Mosquitto, Kafka and Zookeeper. These can be brought locally up using docker:
 
 ```sh
@@ -30,32 +32,31 @@ npm test
 
 ### General Configuration
 
-| variable                        | required |     default     | description                                                                              |
-| :------------------------------ | :------: | :-------------: | :--------------------------------------------------------------------------------------- |
-| PORT                            |    N     |     `3000`      | Port on which the service will listen                                                    |
-| LOG_LEVEL                       |    N     |     `info`      | Logging level. Valid values are [`trace`, `debug`, `info`, `warn`, `error`, `fatal`]. When testing, default = `debug`     |
-| KAFKA_LOG_LEVEL                 |    N     |    `nothing`    | Logging level for Kafka. Valid values are [`debug`, `info`, `warn`, `error`, `nothing`]  |
-| KAFKA_BROKERS                   |    N     | `localhost:9092`| List of addresses for the Kafka brokers                                                  |
-| KAFKA_PAYLOAD_TOPIC             |    N     |  `raw-payloads` | Topic to publish payloads to                                                             |
-| WASP_INGEST_NAME                |    N     |  `nordic-cloud` | Name of this ingest type                                                                 |
-
-
+| variable            | required |       default        | description                                                                                                           |
+| :------------------ | :------: | :------------------: | :-------------------------------------------------------------------------------------------------------------------- |
+| PORT                |    N     |        `3000`        | Port on which the service will listen                                                                                 |
+| LOG_LEVEL           |    N     |        `info`        | Logging level. Valid values are [`trace`, `debug`, `info`, `warn`, `error`, `fatal`]. When testing, default = `debug` |
+| KAFKA_LOG_LEVEL     |    N     |      `nothing`       | Logging level for Kafka. Valid values are [`debug`, `info`, `warn`, `error`, `nothing`]                               |
+| KAFKA_BROKERS       |    N     | `['localhost:9092']` | List of addresses for the Kafka brokers                                                                               |
+| KAFKA_PAYLOAD_TOPIC |    N     |    `raw-payloads`    | Topic to publish payloads to                                                                                          |
+| WASP_INGEST_NAME    |    N     |    `nordic-cloud`    | Name of this ingest type                                                                                              |
 
 ### `mqtt`
-| variable                        | required |     default     | description                                                                              |
-| :------------------------------ | :------: | :-------------: | :--------------------------------------------------------------------------------------- |
-| MQTT_AUTH_METHOD                |    N     |  `certificate`  | Authorisation method for MQTT connection. Valid values are [`certificate`, `none`]. When testing, default = `none` |
-| NORDIC_CLOUD_MQTT_ENDPOINT      |    Y     |        -        | Endpoint for Nordic Cloud MQTT broker. When testing, default = `mqtt://localhost:1883` (Mosquitto) |
-| NORDIC_CLOUD_MQTT_CERT_CLIENT   |    Y     |        -        | Client certificate for TLS connection to Nordic Cloud MQTT broker                        |
-| NORDIC_CLOUD_MQTT_KEY_CLIENT    |    Y     |        -        | Private client key for TLS connection to Nordic Cloud MQTT broker                        |
-| NORDIC_CLOUD_MQTT_CERT_CA       |    Y     |        -        | Server certificate (CA) for TLS connection to Nordic Cloud MQTT broker                   |
-| NORDIC_CLOUD_MQTT_CLIENT_ID     |    Y     |        -        | Client identifier for the Nordic Cloud MQTT broker                                       |
-| NORDIC_CLOUD_MQTT_TOPIC_PREFIX  |    Y     |        -        | Prefix for all topics when subscribing to Nordic Cloud MQTT broker                       |
 
+| variable                       | required |    default    | description                                                                                                        |
+| :----------------------------- | :------: | :-----------: | :----------------------------------------------------------------------------------------------------------------- |
+| MQTT_AUTH_METHOD               |    N     | `certificate` | Authorisation method for MQTT connection. Valid values are [`certificate`, `none`]. When testing, default = `none` |
+| NORDIC_CLOUD_MQTT_ENDPOINT     |    Y     |       -       | Endpoint for Nordic Cloud MQTT broker. When testing, default = `mqtt://localhost:1883` (Mosquitto)                 |
+| NORDIC_CLOUD_MQTT_CERT_CLIENT  |    Y     |       -       | Client certificate for TLS connection to Nordic Cloud MQTT broker                                                  |
+| NORDIC_CLOUD_MQTT_KEY_CLIENT   |    Y     |       -       | Private client key for TLS connection to Nordic Cloud MQTT broker                                                  |
+| NORDIC_CLOUD_MQTT_CERT_CA      |    Y     |       -       | Server certificate (CA) for TLS connection to Nordic Cloud MQTT broker                                             |
+| NORDIC_CLOUD_MQTT_CLIENT_ID    |    Y     |       -       | Client identifier for the Nordic Cloud MQTT broker                                                                 |
+| NORDIC_CLOUD_MQTT_TOPIC_PREFIX |    Y     |       -       | Prefix for all topics when subscribing to Nordic Cloud MQTT broker                                                 |
 
 ## Helm/Kubernetes
 
 Install `minikube` and `helm` using Homebrew, then start `minikube` and update helm dependencies:
+
 ```
 brew install minikube helm
 minikube start
@@ -63,21 +64,25 @@ helm dependency update helm/wasp-ingest-nordic-cloud
 ```
 
 Eval is required to provide helm with visibility for your local docker image repository:
+
 ```
 eval $(minikube docker-env)
 ```
 
 Build the docker image (change `src=` to point to your local github token):
+
 ```
 DOCKER_BUILDKIT=1 docker build -t wasp-ingest-nordic-cloud:latest --secret id=github,src=<path/to/your/github_token> .
 ```
 
 To run/deploy the application on kubernetes via helm charts use the following `ct-values.yaml` with the corresponding overrides:
+
 ```
 helm install wasp-ingest-nordic-cloud helm/wasp-ingest-nordic-cloud -f helm/wasp-ingest-nordic-cloud/ci/ct-values.yaml
 ```
 
 Check the pods are running successfully using:
+
 ```
 kubectl get pods -A
 ```
