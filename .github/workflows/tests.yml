@@ -104,8 +104,8 @@ jobs:
         env:
           GITHUB_PACKAGE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  new-check-version:
-    name: 'Check version2'
+  check-version:
+    name: 'Check version'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -116,20 +116,6 @@ jobs:
         with:
           npm_package_location: './'
           token: ${{ secrets.GITHUB_TOKEN }}   
-
-  check-version:
-    name: "Check version"
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - run: git fetch --depth=1 --tags origin
-      - name: Install yq
-        run: sudo snap install yq
-      - name: Check Build Version
-        id: get_version
-        run: ./scripts/check-version.sh
-        shell: bash
       - name: Error if version is not increased
         shell: bash
         run: |
