@@ -122,13 +122,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - run: git fetch --depth=1 --tags origin
-      - name: Install yq
-        run: sudo snap install yq
-      - name: Check Build Version
+      - name: Check version
         id: get_version
-        run: ./scripts/check-version.sh
-        shell: bash
+        uses: digicatapult/check-version@v1
+        with:
+          npm_package_location: './'
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Skipping release as version has not increased
         if: steps.get_version.outputs.IS_NEW_VERSION != 'true'
         shell: bash
