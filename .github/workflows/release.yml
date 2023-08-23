@@ -115,10 +115,8 @@ jobs:
     name: "Check version"
     runs-on: ubuntu-latest
     outputs:
-      is_new_version: ${{ steps.get_version.outputs.IS_NEW_VERSION }}
       version: ${{ steps.get_version.outputs.VERSION }}
       build_date: ${{ steps.get_version.outputs.BUILD_DATE }}
-      is_prerelease: ${{ steps.get_version.outputs.IS_PRERELEASE }}
 
     steps:
       - uses: actions/checkout@v3
@@ -126,19 +124,12 @@ jobs:
         id: get_version
         uses: digicatapult/check-version@v1
         with:
-          npm_package_location: './'
           token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Skipping release as version has not increased
-        if: steps.get_version.outputs.IS_NEW_VERSION != 'true'
-        shell: bash
-        run: |
-          echo "Skipping release as current version has already been published"
 
   publish:
     name: "Publish package"
     needs: [preconditions, lint, dependency-check, tests, check-version]
     runs-on: ubuntu-latest
-    if: ${{ needs.check-version.outputs.is_new_version == 'true' }}
 
     steps:
       - uses: actions/checkout@v3
@@ -180,13 +171,6 @@ jobs:
             org.opencontainers.image.revision=${{ github.sha }}
             org.opencontainers.image.version=${{ needs.check-version.outputs.version }}
             org.opencontainers.image.created=${{ needs.check-version.outputs.build_date }}
-
-      # Publish helm charts
-      - name: Publish Helm charts
-        uses: stefanprodan/helm-gh-pages@master
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          charts_dir: helm
 
       # Build github release
       - name: Build release version

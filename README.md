@@ -52,37 +52,3 @@ npm test
 | NORDIC_CLOUD_MQTT_CERT_CA      |    Y     |       -       | Server certificate (CA) for TLS connection to Nordic Cloud MQTT broker                                             |
 | NORDIC_CLOUD_MQTT_CLIENT_ID    |    Y     |       -       | Client identifier for the Nordic Cloud MQTT broker                                                                 |
 | NORDIC_CLOUD_MQTT_TOPIC_PREFIX |    Y     |       -       | Prefix for all topics when subscribing to Nordic Cloud MQTT broker                                                 |
-
-## Helm/Kubernetes
-
-Install `minikube` and `helm` using Homebrew, then start `minikube` and update helm dependencies:
-
-```
-brew install minikube helm
-minikube start
-helm dependency update helm/wasp-ingest-nordic-cloud
-```
-
-Eval is required to provide helm with visibility for your local docker image repository:
-
-```
-eval $(minikube docker-env)
-```
-
-Build the docker image (change `src=` to point to your local github token):
-
-```
-DOCKER_BUILDKIT=1 docker build -t wasp-ingest-nordic-cloud:latest --secret id=github,src=<path/to/your/github_token> .
-```
-
-To run/deploy the application on kubernetes via helm charts use the following `ct-values.yaml` with the corresponding overrides:
-
-```
-helm install wasp-ingest-nordic-cloud helm/wasp-ingest-nordic-cloud -f helm/wasp-ingest-nordic-cloud/ci/ct-values.yaml
-```
-
-Check the pods are running successfully using:
-
-```
-kubectl get pods -A
-```

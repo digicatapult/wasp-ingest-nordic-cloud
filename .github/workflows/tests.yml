@@ -113,5 +113,4 @@ jobs:
         id: get_version
         uses: digicatapult/check-version@v1
         with:
-          npm_package_location: './'
           token: ${{ secrets.GITHUB_TOKEN }}
