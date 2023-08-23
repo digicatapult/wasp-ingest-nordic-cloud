@@ -1,6 +1,8 @@
-const mqtt = require('mqtt')
+import mqtt from 'mqtt'
 
-const globalLogger = require('../logger')
+import globalLogger from '../logger.js'
+import env from '../env.js'
+
 const {
   NORDIC_CLOUD_MQTT_ENDPOINT,
   MQTT_AUTH_METHOD,
@@ -9,7 +11,7 @@ const {
   NORDIC_CLOUD_MQTT_CLIENT_ID,
   NORDIC_CLOUD_MQTT_KEY_CLIENT,
   NORDIC_CLOUD_MQTT_TOPIC_PREFIX,
-} = require('../env')
+} = env
 
 const setupNordicCloudListener = async (next) => {
   const logger = globalLogger.child({ module: 'nordic-cloud' })
@@ -80,4 +82,4 @@ const setupNordicCloudListener = async (next) => {
   })
 }
 
-module.exports = setupNordicCloudListener
+export default setupNordicCloudListener

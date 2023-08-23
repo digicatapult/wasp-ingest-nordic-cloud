@@ -1,11 +1,13 @@
-const express = require('express')
-const pinoHttp = require('pino-http')
+import express from 'express'
+import pinoHttp from 'pino-http'
 
-const startMessagePipeline = require('./messagePipeline')
-const { PORT } = require('./env')
-const logger = require('./logger')
+import startMessagePipeline from './messagePipeline/index.js'
+import env from './env.js'
+import logger from './logger.js'
 
-async function createHttpServer() {
+const { PORT } = env
+
+export async function createHttpServer() {
   const app = express()
   const requestLogger = pinoHttp({ logger })
 
@@ -34,7 +36,7 @@ async function createHttpServer() {
   return { app }
 }
 
-async function startServer() {
+export async function startServer() {
   try {
     const { app } = await createHttpServer()
 
@@ -76,5 +78,3 @@ async function startServer() {
     process.exit(1)
   }
 }
-
-module.exports = { startServer, createHttpServer }

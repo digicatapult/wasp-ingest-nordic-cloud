@@ -1,5 +1,5 @@
-const envalid = require('envalid')
-const dotenv = require('dotenv')
+import envalid from 'envalid'
+import dotenv from 'dotenv'
 
 if (process.env.NODE_ENV === 'test') {
   dotenv.config({ path: 'test/test.env' })
@@ -41,7 +41,7 @@ const vars = envalid.cleanEnv(
       const kafkaSet = new Set(input === '' ? [] : input.split(','))
       if (kafkaSet.size === 0) throw new Error('At least one kafka broker must be configured')
       return [...kafkaSet]
-    })({ default: 'localhost:9092' }),
+    })({ default: ['localhost:9092'] }),
     KAFKA_PAYLOAD_TOPIC: envalid.str({ default: 'raw-payloads' }),
     NORDIC_CLOUD_MQTT_TOPIC_PREFIX: envalid.str({ devDefault: '' }),
     WASP_INGEST_NAME: envalid.str({ default: 'nordic-cloud' }),
@@ -49,7 +49,7 @@ const vars = envalid.cleanEnv(
   options
 )
 
-module.exports = {
+export default {
   ...vars,
   MQTT_AUTH_METHOD,
 }

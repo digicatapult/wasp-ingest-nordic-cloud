@@ -1,5 +1,5 @@
 .github
-.nyc_output
+.c8rc
 coverage
 node_modules
 scripts
