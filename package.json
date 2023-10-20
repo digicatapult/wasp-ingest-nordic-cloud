@@ -1,6 +1,6 @@
 {
   "name": "wasp-ingest-nordic-cloud",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "WASP Ingest using nRF Cloud",
   "type": "module",
   "main": "app/index.js",
@@ -34,7 +34,7 @@
   "homepage": "https://github.com/digicatapult/wasp-ingest-nordic-cloud#readme",
   "devDependencies": {
     "chai": "^4.3.10",
-    "depcheck": "^1.4.6",
+    "depcheck": "^1.4.7",
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
