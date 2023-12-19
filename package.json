@@ -1,6 +1,6 @@
 {
   "name": "wasp-ingest-nordic-cloud",
-  "version": "1.0.40",
+  "version": "1.0.41",
   "description": "WASP Ingest using nRF Cloud",
   "type": "module",
   "main": "app/index.js",
@@ -35,7 +35,7 @@
   "devDependencies": {
     "chai": "^4.3.10",
     "depcheck": "^1.4.7",
-    "eslint": "^8.55.0",
+    "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.0.1",
     "mocha": "^10.2.0",
@@ -52,7 +52,7 @@
     "kafkajs": "^2.2.4",
     "mqtt": "^5.3.3",
     "pino": "^8.17.1",
-    "pino-http": "^8.5.1",
+    "pino-http": "^8.6.0",
     "uuid": "^9.0.1"
   }
 }
