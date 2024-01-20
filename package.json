@@ -1,6 +1,6 @@
 {
   "name": "wasp-ingest-nordic-cloud",
-  "version": "1.0.53",
+  "version": "1.0.54",
   "description": "WASP Ingest using nRF Cloud",
   "type": "module",
   "main": "app/index.js",
@@ -42,7 +42,7 @@
     "nodemon": "^3.0.3",
     "c8": "^8.0.1",
     "pino-colada": "^2.2.2",
-    "prettier": "^3.2.3",
+    "prettier": "^3.2.4",
     "supertest": "^6.3.4"
   },
   "dependencies": {
