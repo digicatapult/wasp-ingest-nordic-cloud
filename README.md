@@ -1,5 +1,9 @@
 # wasp-ingest-nordic-cloud
 
+## Deprecation Notice
+`WASP` was deprecated on March 14th 2024, there will be no further dependency or security updates to this platform.
+---
+
 WASP Ingest for nRF Cloud
 
 Connects to a [Nordic Cloud](https://nrfcloud.com/) supplied MQTT broker. Parses and reformats messages from Nordic devices, then forwards them to be used throughout the rest of WASP.
